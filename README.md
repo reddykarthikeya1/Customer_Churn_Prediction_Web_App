@@ -13,6 +13,10 @@ Build a user-friendly Flask web application that allows users to input customer 
 Feel free to explore the code, learn from the end-to-end workflow, and contribute to the project!
 
 
+**This project is deployed at:**
+https://70120510-6ae7-4289-b2d0-3668d722afd1-00-11c2spv0dts8f.worf.replit.dev/
+
+
 
 
 
