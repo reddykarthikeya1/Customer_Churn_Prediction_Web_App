@@ -5,29 +5,81 @@
   <title>Customer Churn Prediction | Karthikeya Reddy</title>
   <!-- Google Fonts & Animate.css -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <style>
-    /* Reset & Global Styles */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* Global Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
       font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      background: #000; /* dark night sky */
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #444;
       overflow-x: hidden;
+      position: relative;
+      color: #eee;
     }
+    /* Shooting stars container */
+    .shooting-stars-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    /* Each shooting star */
+    .shooting-star {
+      position: absolute;
+      top: -10px;
+      left: -150px;
+      width: 2px;
+      height: 80px;
+      background: linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
+      opacity: 0;
+      transform: rotate(45deg);
+      animation: shoot var(--duration) linear infinite;
+      animation-delay: var(--delay);
+    }
+    /* Keyframes for shooting star animation */
+    @keyframes shoot {
+      0% {
+        transform: translate(0, 0) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(800px, 800px) rotate(45deg);
+        opacity: 0;
+      }
+    }
+    /* Create multiple stars using CSS variables for randomization */
+    .shooting-star:nth-child(1) { --duration: 2s; --delay: 0.5s; }
+    .shooting-star:nth-child(2) { --duration: 3s; --delay: 1.2s; top: 10%; left: -200px; }
+    .shooting-star:nth-child(3) { --duration: 2.5s; --delay: 0.8s; top: 25%; left: -100px; }
+    .shooting-star:nth-child(4) { --duration: 3.2s; --delay: 1.5s; top: 40%; left: -250px; }
+    .shooting-star:nth-child(5) { --duration: 2.8s; --delay: 0.3s; top: 60%; left: -150px; }
+    .shooting-star:nth-child(6) { --duration: 3.5s; --delay: 1.8s; top: 80%; left: -300px; }
+    .shooting-star:nth-child(7) { --duration: 2.2s; --delay: 0.7s; top: 15%; left: -180px; }
+    .shooting-star:nth-child(8) { --duration: 3s; --delay: 1.0s; top: 50%; left: -220px; }
+    .shooting-star:nth-child(9) { --duration: 2.6s; --delay: 0.4s; top: 70%; left: -130px; }
+    .shooting-star:nth-child(10) { --duration: 3.1s; --delay: 1.3s; top: 35%; left: -170px; }
+    
+    /* Main content container */
     .container {
+      position: relative;
+      z-index: 1;
       background: rgba(255, 255, 255, 0.97);
       width: 90%;
       max-width: 900px;
       padding: 40px;
       border-radius: 12px;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      margin: 40px auto;
       animation: fadeInDown 1s ease-out;
-      position: relative;
+      color: #333;
     }
     @keyframes fadeInDown {
       from { opacity: 0; transform: translateY(-50px); }
@@ -131,6 +183,20 @@
   </style>
 </head>
 <body>
+  <!-- Shooting stars background container -->
+  <div class="shooting-stars-container">
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+  </div>
+
   <div class="container">
     <h1 class="animate__animated animate__bounceIn">Telco Churn Prediction</h1>
     <form method="POST" action="/">
