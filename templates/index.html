@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Churn Prediction | Karthikeya Reddy</title>
+  <!-- Google Fonts & Animate.css -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <style>
+    /* Reset & Global Styles */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #444;
+      overflow-x: hidden;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.97);
+      width: 90%;
+      max-width: 900px;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      animation: fadeInDown 1s ease-out;
+      position: relative;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #0072ff;
+      font-size: 2.5rem;
+      animation: bounceIn 1s;
+    }
+    form {
+      margin-top: 20px;
+      animation: fadeInUp 1s ease-out;
+    }
+    .form-group {
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      transition: transform 0.3s;
+    }
+    .form-group:hover {
+      transform: scale(1.02);
+    }
+    .form-group label {
+      flex: 1 0 220px;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #333;
+    }
+    .form-group input,
+    .form-group select {
+      flex: 2 0 300px;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: border 0.3s;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #0072ff;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 114, 255, 0.5);
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: #0072ff;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      margin-top: 10px;
+    }
+    .submit-btn:hover {
+      background: #005bb5;
+      transform: translateY(-3px);
+    }
+    .result {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f0f8ff;
+      border-left: 6px solid #0072ff;
+      border-radius: 6px;
+      animation: fadeIn 1s ease-out;
+    }
+    .result h3 {
+      margin-top: 0;
+      color: #005bb5;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #666;
+      animation: fadeIn 2s;
+    }
+    footer a {
+      color: #0072ff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 600px) {
+      .form-group {
+        flex-direction: column;
+      }
+      .form-group label,
+      .form-group input,
+      .form-group select {
+        flex: 1 0 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="animate__animated animate__bounceIn">Telco Churn Prediction</h1>
+    <form method="POST" action="/">
+      <!-- Query 1: Senior Citizen -->
+      <div class="form-group">
+        <label for="query1">Senior Citizen (0 = No, 1 = Yes):</label>
+        <input type="number" id="query1" name="query1" min="0" max="1" required>
+      </div>
+      
+      <!-- Query 2: Monthly Charges -->
+      <div class="form-group">
+        <label for="query2">Monthly Charges ($):</label>
+        <input type="number" step="0.01" id="query2" name="query2" required>
+      </div>
+      
+      <!-- Query 3: Total Charges -->
+      <div class="form-group">
+        <label for="query3">Total Charges ($):</label>
+        <input type="number" step="0.01" id="query3" name="query3" required>
+      </div>
+      
+      <!-- Query 4: Gender -->
+      <div class="form-group">
+        <label for="query4">Gender:</label>
+        <select id="query4" name="query4" required>
+          <option value="Female">Female</option>
+          <option value="Male">Male</option>
+        </select>
+      </div>
+      
+      <!-- Query 5: Partner -->
+      <div class="form-group">
+        <label for="query5">Partner:</label>
+        <select id="query5" name="query5" required>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+      
+      <!-- Query 6: Dependents -->
+      <div class="form-group">
+        <label for="query6">Dependents:</label>
+        <select id="query6" name="query6" required>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+      
+      <!-- Query 7: Phone Service -->
+      <div class="form-group">
+        <label for="query7">Phone Service:</label>
+        <select id="query7" name="query7" required>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+      
+      <!-- Query 8: Multiple Lines -->
+      <div class="form-group">
+        <label for="query8">Multiple Lines:</label>
+        <select id="query8" name="query8" required>
+          <option value="No phone service">No phone service</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+      
+      <!-- Query 9: Internet Service -->
+      <div class="form-group">
+        <label for="query9">Internet Service:</label>
+        <select id="query9" name="query9" required>
+          <option value="DSL">DSL</option>
+          <option value="Fiber optic">Fiber optic</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+      
+      <!-- Query 10: Online Security -->
+      <div class="form-group">
+        <label for="query10">Online Security:</label>
+        <select id="query10" name="query10" required>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="No internet service">No internet service</option>
+        </select>
+      </div>
+      
+      <!-- Query 11: Online Backup -->
+      <div class="form-group">
+        <label for="query11">Online Backup:</label>
+        <select id="query11" name="query11" required>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="No internet service">No internet service</option>
+        </select>
+      </div>
+      
+      <!-- Query 12: Device Protection -->
+      <div class="form-group">
+        <label for="query12">Device Protection:</label>
+        <select id="query12" name="query12" required>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="No internet service">No internet service</option>
+        </select>
+      </div>
+      
+      <!-- Query 13: Tech Support -->
+      <div class="form-group">
+        <label for="query13">Tech Support:</label>
+        <select id="query13" name="query13" required>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="No internet service">No internet service</option>
+        </select>
+      </div>
+      
+      <!-- Query 14: Streaming TV -->
+      <div class="form-group">
+        <label for="query14">Streaming TV:</label>
+        <select id="query14" name="query14" required>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="No internet service">No internet service</option>
+        </select>
+      </div>
+      
+      <!-- Query 15: Streaming Movies -->
+      <div class="form-group">
+        <label for="query15">Streaming Movies:</label>
+        <select id="query15" name="query15" required>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="No internet service">No internet service</option>
+        </select>
+      </div>
+      
+      <!-- Query 16: Contract -->
+      <div class="form-group">
+        <label for="query16">Contract:</label>
+        <select id="query16" name="query16" required>
+          <option value="Month-to-month">Month-to-month</option>
+          <option value="One year">One year</option>
+          <option value="Two year">Two year</option>
+        </select>
+      </div>
+      
+      <!-- Query 17: Paperless Billing -->
+      <div class="form-group">
+        <label for="query17">Paperless Billing:</label>
+        <select id="query17" name="query17" required>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+      
+      <!-- Query 18: Payment Method -->
+      <div class="form-group">
+        <label for="query18">Payment Method:</label>
+        <select id="query18" name="query18" required>
+          <option value="Electronic check">Electronic check</option>
+          <option value="Mailed check">Mailed check</option>
+          <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
+          <option value="Credit card (automatic)">Credit card (automatic)</option>
+        </select>
+      </div>
+      
+      <!-- Query 19: Tenure -->
+      <div class="form-group">
+        <label for="query19">Tenure (months):</label>
+        <input type="number" id="query19" name="query19" required>
+      </div>
+      
+      <button type="submit" class="submit-btn">Predict Churn</button>
+    </form>
+    
+    {% if output1 and output2 %}
+      <div class="result">
+        <h3>Prediction Result:</h3>
+        <p>{{ output1 }}</p>
+        <p>{{ output2 }}</p>
+      </div>
+    {% endif %}
+    
+    <footer>
+      <p>Developed by <strong>Karthikeya Reddy</strong> | <a href="https://github.com/reddykarthikeya1/Customer_Churn_Prediction_Web_App" target="_blank">GitHub Repository</a></p>
+    </footer>
+  </div>
+</body>
+</html>
