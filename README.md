@@ -1,4 +1,4 @@
-#Telco Customer Churn Prediction Web App
+<h1>Telco Customer Churn Prediction Web App</h1>
 This project guides you through the complete process of developing a predictive web application for customer churn in the telecom industry. The repository covers:
 
 Exploratory Data Analysis (EDA):
