@@ -1,6 +1,7 @@
 <h1>Telco Customer Churn Prediction Web App</h1>
 This project guides you through the complete process of developing a predictive web application for customer churn in the telecom industry. It covers three major stages:
 
+
 **1.Exploratory Data Analysis (EDA):**
 Dive deep into the dataset to understand trends, identify key features, and uncover insights about customer churn. This analysis helps in understanding the underlying factors contributing to churn and informs the feature engineering process.
 
